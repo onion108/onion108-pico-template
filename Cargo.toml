@@ -1,6 +1,7 @@
 [package]
 name = "super-blank-project"
 version = "0.2.0"
+edition = "2021"
 
 
 [target.thumbv6m-none-eabi]
@@ -18,4 +19,4 @@ rp2040-boot2 = "0.2.1"
 
 [[bin]]
 name = "blinky"
-path = "blinky.rs"
+path = "src/blinky.rs"
