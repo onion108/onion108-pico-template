@@ -12,12 +12,15 @@ extern crate panic_halt;
 extern crate embedded_hal;
 extern crate rp2040_hal;
 
+mod usb_manager;
+
 // Ensure we halt the program on panic (if we don't mention this crate it won't
 // be linked)
+#[allow(unused_imports)]
 use panic_halt as _;
 
 // Alias for our HAL crate
-use rp2040_hal as hal;
+use rp2040_hal::{self as hal, gpio::PinState, usb::UsbBus};
 
 // A shorter alias for the Peripheral Access Crate, which provides low-level
 // register access
@@ -83,6 +86,8 @@ fn main() -> ! {
 
     // Configure GPIO25 as an output
     let mut led_pin = pins.gpio25.into_push_pull_output();
+    let mut my_magic_pin = pins.gpio6.into_push_pull_output();
+    my_magic_pin.set_state(PinState::Low);
     loop {
         led_pin.set_high().unwrap();
         delay.delay_ms(250);
@@ -91,4 +96,3 @@ fn main() -> ! {
     }
 }
 
-// End of file
